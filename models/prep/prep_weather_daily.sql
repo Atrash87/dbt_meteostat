@@ -1,15 +1,16 @@
+
 WITH daily_data AS (
     SELECT * 
-    FROM {{ ref('staging_weather_daily') }}
+    FROM {{ref('staging_weather_daily') }}
 ),
 add_features AS (
     SELECT *
-        , EXTRACT(DAY FROM date) AS date_day            -- number of the day of month
-        , EXTRACT(MONTH FROM date) AS date_month        -- number of the month of year
-        , EXTRACT(YEAR FROM date) AS date_year          -- number of year
-        , EXTRACT(WEEK FROM date) AS cw                 -- number of the week of year
-        , FORMAT_TIMESTAMP('%B', date) AS month_name    -- name of the month
-        , FORMAT_TIMESTAMP('%A', date) AS weekday       -- name of the weekday
+		, date_part ('day',date) AS date_day 		-- number of the day of month
+		,date_part ('month',date) AS date_month 	-- number of the month of year
+		, date_part ('year',date) AS date_year 		-- number of year
+		, date_part ('week',date) AS cw 			-- number of the week of year
+		, to_char(date,'FMMonth') AS month_name 	-- name of the month
+		, to_char(date,'FMday') AS weekday 		-- name of the weekday
     FROM daily_data 
 ),
 add_more_features AS (
