@@ -24,7 +24,7 @@ WITH airports_reorder AS (
     	   tz,
     	   dst,
     	   city,
-    	   country,
+    	   country
     FROM {{ref('staging_airports')}}
 )
 SELECT * FROM airports_reorder
