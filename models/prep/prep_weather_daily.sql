@@ -1,25 +1,25 @@
 WITH daily_data AS (
     SELECT * 
-    FROM {{ref('staging_weather_daily')}}
+    FROM {{ ref('staging_weather_daily') }}
 ),
 add_features AS (
     SELECT *
-		, ... AS date_day 		-- number of the day of month
-		, ... AS date_month 	-- number of the month of year
-		, ... AS date_year 		-- number of year
-		, ... AS cw 			-- number of the week of year
-		, ... AS month_name 	-- name of the month
-		, ... AS weekday 		-- name of the weekday
+        , EXTRACT(DAY FROM date) AS date_day            -- number of the day of month
+        , EXTRACT(MONTH FROM date) AS date_month        -- number of the month of year
+        , EXTRACT(YEAR FROM date) AS date_year          -- number of year
+        , EXTRACT(WEEK FROM date) AS cw                 -- number of the week of year
+        , FORMAT_TIMESTAMP('%B', date) AS month_name    -- name of the month
+        , FORMAT_TIMESTAMP('%A', date) AS weekday       -- name of the weekday
     FROM daily_data 
 ),
 add_more_features AS (
     SELECT *
-		, (CASE 
-			WHEN month_name in ... THEN 'winter'
-			WHEN ... THEN 'spring'
-            WHEN ... THEN 'summer'
-            WHEN ... THEN 'autumn'
-		END) AS season
+        , (CASE 
+            WHEN month_name IN ('December', 'January', 'February') THEN 'winter'
+            WHEN month_name IN ('March', 'April', 'May') THEN 'spring'
+            WHEN month_name IN ('June', 'July', 'August') THEN 'summer'
+            WHEN month_name IN ('September', 'October', 'November') THEN 'autumn'
+        END) AS season
     FROM add_features
 )
 SELECT *
