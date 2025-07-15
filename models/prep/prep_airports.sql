@@ -8,7 +8,7 @@ WITH airports_reorder AS (
            alt,
            tz,
            dst,
-           city,
+           city
     FROM {{ref('staging_airports')}}
 )
 SELECT * FROM airports_reorder
