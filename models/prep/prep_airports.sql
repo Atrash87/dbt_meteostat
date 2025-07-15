@@ -1,7 +1,30 @@
 WITH airports_reorder AS (
-    SELECT faa
-    	   ,...
-    	   ...
+    SELECT faa,
+    	    flight_number,
+    	    flight_date,
+    	   dep_time,
+    	   sched_dep_time,
+    	   dep_delay,
+    	   arr_time,
+    	   sched_arr_time,
+    	   arr_delay,
+    	   airline,
+    	   taailnumber,
+    	   origin,
+    	   dest,
+    	   air_tiem,
+    	   actual_elapsed_time,
+    	   distance,
+    	   cancelled,
+    	   diverted,
+    	   name,
+    	   lat,
+    	   lon,
+    	   alt,
+    	   tz,
+    	   dst,
+    	   city,
+    	   country,
     FROM {{ref('staging_airports')}}
 )
 SELECT * FROM airports_reorder
