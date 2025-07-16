@@ -4,6 +4,7 @@ WITH route_stats AS (
         dest,
         COUNT(DISTINCT tail_number) AS unique_airplanes,
         COUNT(DISTINCT airline) AS unique_airlines,
+        count(flight_number) as total_flights,
         ROUND(AVG(actual_elapsed_time), 2) AS avg_act_elapsed_time,
         ROUND(AVG(arr_delay), 2) AS avg_arr_delay,
         MAX(arr_delay) AS max_arr_delay,
