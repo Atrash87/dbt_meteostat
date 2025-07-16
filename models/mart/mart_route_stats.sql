@@ -28,4 +28,4 @@ route_info AS (
     LEFT JOIN {{ ref('prep_airports') }} ad ON rs.dest = ad.faa
 )
 
-SELECT * FROM route_info;
+SELECT * FROM route_info
